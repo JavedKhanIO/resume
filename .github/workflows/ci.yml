@@ -1,0 +1,27 @@
+name: Resume CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull-request:
+    branches: [ "main" ]
+
+jobs:
+  validete:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate HTML exists
+        run: |
+          test -f index.html
+          echo "index.html found"
+
+      - name: Basic HTML sanity check
+        run: |
+          grep -i "<html" index.html
+          grep -i "<head" index.html
+          grep -i "<body" index.html
+          echo "basic HTML structure looks okay"
